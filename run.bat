@@ -8,7 +8,7 @@ FOR %%F IN (%filepath%) DO SET filename=%%~nF
 SET INPUT=io\in.txt
 SET OUTPUT=io\out.txt
 
-SET COMPILE=g++ -std=c++11 "%filepath%" -o "bin\%filename%.exe"
+SET COMPILE=g++ -std=c++11 -Wall "%filepath%" -o "bin\%filename%.exe"
 
 IF DEFINED filepath (
     ECHO Compiling:  %filepath%
