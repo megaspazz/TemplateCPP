@@ -26,13 +26,20 @@ int main() {
 		idx[c] = -1;
 	}
 
+	pair<char, int> idxs[N];
+	for (int i = 0; i < N; i++) {
+		idxs[i] = make_pair(S[i], i);
+	}
+	sort(idxs, idxs + N);
+
 	for (int i = N - 1; i >= 0; i--) {
 		idx[S[i] - 'a'] = i;
 		string curr = string(1, S[i]);
 		vecs[i].push_back(curr);
-		for (int c = 0; c < 26; c++) {
-			if (idx[c] > i) {
-				for (string str : vecs[idx[c]]) {
+		for (int j = 0; j < N; j++) {
+			int pos = idxs[j].second;
+			if (pos > i) {
+				for (string str : vecs[pos]) {
 					vecs[i].push_back(curr + str);
 				}
 			}
