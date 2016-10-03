@@ -3,17 +3,18 @@
  * two numbers must be within the range of signed 32-bit integers.
  */
 
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
 int main() {
 	std::ios::sync_with_stdio(false);
+    
+    int A, B;
 
-	int A, B;
-	cin >> A;
-	cin >> B;
-	cout << A + B << endl;
+    cin >> A >> B;
 
-	return 0;
+	cout << (A + B) << endl;
+    
+    return 0;
 }
