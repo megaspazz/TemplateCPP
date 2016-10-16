@@ -7,6 +7,7 @@ FOR %%F IN (%filepath%) DO SET filename=%%~nF
 
 SET INPUT=io\in.txt
 SET OUTPUT=io\out.txt
+SET ERROR=io\err.txt
 
 SET COMPILE=g++ -std=c++11 -Wall "%filepath%" -o "bin\%filename%.exe"
 
@@ -14,7 +15,7 @@ IF DEFINED filepath (
     ECHO Compiling:  %filepath%
     %COMPILE% ^
         && ECHO Compilation successful. ^
-        && "bin\%filename%.exe" < %INPUT% > %OUTPUT% ^
+        && "bin\%filename%.exe" < %INPUT% > %OUTPUT% 2> %ERROR% ^
         && ECHO Execution successful. ^
         && ECHO. && type %OUTPUT%
 ) ELSE (
