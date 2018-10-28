@@ -11,22 +11,34 @@ SET ERROR=io\err.txt
 
 SET COMPILE=g++ -std=c++11 -Wall "%filepath%" -o "bin\%filename%.exe"
 
+IF NOT EXIST "bin\" (
+    MKDIR "bin"
+)
+
 IF DEFINED filepath (
-    ECHO Compiling:  %filepath%
+    ECHO === Compiling:  %filepath%
     %COMPILE% 2> %ERROR%
     IF ERRORLEVEL 1 (
+        ECHO === Compilation failed.  See "%ERROR%" for details.
+        ECHO.
         TYPE "%ERROR%""
         ECHO.
-        ECHO Compilation failed.  See "%ERROR%" for details.
     ) ELSE (
-        ECHO Compilation successful.
+        ECHO === Compilation successful.
         ECHO.
         "bin\%filename%.exe" < %INPUT% > %OUTPUT% 2> %ERROR%  ^
-            && SET result=Execution successful. ^
-            || SET result=The program crashed.
+            && SET success=true ^
+            || SET success= result=
         TYPE "%OUTPUT%"
         ECHO.
-        ECHO !result!
+        if DEFINED success (
+            ECHO === Execution successful.
+        ) ELSE (
+            ECHO === The program crashed.  See "%ERROR%" for details.
+            ECHO.
+            TYPE "%ERROR%"
+            ECHO.
+        )
     )
 ) ELSE (
     ECHO ERROR: File not found!
