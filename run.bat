@@ -9,7 +9,7 @@ SET INPUT=io\in.txt
 SET OUTPUT=io\out.txt
 SET ERROR=io\err.txt
 
-SET COMPILE=g++ -std=c++11 -Wall "%filepath%" -o "bin\%filename%.exe"
+SET COMPILE=g++ -std=c++17 -Wall "%filepath%" -o "bin\%filename%.exe"
 
 IF NOT EXIST "bin\" (
     MKDIR "bin"
@@ -28,7 +28,7 @@ IF DEFINED filepath (
         ECHO.
         "bin\%filename%.exe" < %INPUT% > %OUTPUT% 2> %ERROR%  ^
             && SET success=true ^
-            || SET success= result=
+            || SET success=
         TYPE "%OUTPUT%"
         ECHO.
         if DEFINED success (
